@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: taskboard
+  labels:
+    app: taskboard
+spec:
+  containers:
+    - name: web
+      image: nginx          # swap for <user>/taskboard:1.0 to run your own image
+      ports:
+        - containerPort: 80

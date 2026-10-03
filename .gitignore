@@ -1,0 +1,16 @@
+# WSQ source (read-only input) — never published
+source-wsq/
+
+# Private
+assessment/
+reference/
+
+# Superseded / generated
+archive/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Secrets
+.env
+.env.*

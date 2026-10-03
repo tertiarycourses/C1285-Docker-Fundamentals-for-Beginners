@@ -1,0 +1,31 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8080:5000"
+    environment:
+      - APP_ENV=production
+      - DATABASE_URL=postgresql://taskboard:secret@db:5432/taskboard
+      - REDIS_HOST=redis
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=taskboard
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=taskboard
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taskboard"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+  redis:
+    image: redis:7-alpine
+volumes:
+  pgdata:

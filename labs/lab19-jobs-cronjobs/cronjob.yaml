@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: taskboard-cleanup
+spec:
+  schedule: "*/1 * * * *"     # every minute (demo); real cleanup might be nightly
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: cleanup
+              image: busybox
+              command: ["sh", "-c", "echo 'Cleaning up old TaskBoard sessions...'; date"]

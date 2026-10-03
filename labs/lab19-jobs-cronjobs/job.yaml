@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: taskboard-report
+spec:
+  completions: 3
+  parallelism: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: report
+          image: busybox
+          command: ["sh", "-c", "echo 'Generating TaskBoard report...'; sleep 5; echo done"]
